@@ -85,7 +85,8 @@ function SaturnScene() {
   const groupRef = useRef();
   const saturnRef = useRef();
   const enceladusRef = useRef();
-  const titanRef = useRef();
+  const ceresRef = useRef();
+  const makemakeRef = useRef();
 
   // Load standard solar system textures
   const [saturnMap, ceresMap, makemakeMap, ringMap, milkyWayMap] = useTexture([
@@ -101,11 +102,14 @@ function SaturnScene() {
       saturnRef.current.rotation.y += 0.001; // Only rotate around Y axis (day/night)
     }
     if (enceladusRef.current) {
-      enceladusRef.current.rotation.y += 0.005;
+      enceladusRef.current.rotation.y -= 0.005;
     }
-    if (titanRef.current) {
-      titanRef.current.rotation.y += 0.002;
-      titanRef.current.rotation.x += 0.001;
+    if (ceresRef.current) {
+      ceresRef.current.rotation.y += 0.005;
+    }
+    if (makemakeRef.current) {
+      makemakeRef.current.rotation.y += 0.002;
+      makemakeRef.current.rotation.x += 0.001;
     }
   });
 
@@ -133,8 +137,18 @@ function SaturnScene() {
         </group>
       </group>
 
-      {/* Enceladus (Replaced with Ceres) */}
-      <Sphere ref={enceladusRef} args={[3.5, 32, 32]} position={[150, 20, -100]}>
+      {/* Hero Moon (Enceladus) */}
+      <Sphere ref={enceladusRef} args={[2.5, 32, 32]} position={[-40, -5, 405]}>
+        <meshStandardMaterial
+          map={ceresMap}
+          color="#ECECEC"
+          roughness={0.4}
+          metalness={0.0}
+        />
+      </Sphere>
+
+      {/* Ceres */}
+      <Sphere ref={ceresRef} args={[3.5, 32, 32]} position={[150, 20, -100]}>
         <meshStandardMaterial
           map={ceresMap}
           color="#DDDDDD"
@@ -143,8 +157,8 @@ function SaturnScene() {
         />
       </Sphere>
 
-      {/* Titan (Replaced with Makemake fictional) */}
-      <Sphere ref={titanRef} args={[5.5, 32, 32]} position={[-150, -30, 50]}>
+      {/* Makemake */}
+      <Sphere ref={makemakeRef} args={[5.5, 32, 32]} position={[-150, -30, 50]}>
         <meshStandardMaterial
           map={makemakeMap}
           roughness={0.9}
@@ -166,14 +180,23 @@ function SaturnScene() {
   );
 }
 
+const HERO_START_ANGLE = Math.PI * 0.45; // Just a tiny bit off-center
+const HERO_END_ANGLE = Math.PI * 0.6; // Rotate the opposite direction
+const HERO_RADIUS = 15;
+const HERO_CENTER = new THREE.Vector3(-40, -5, 405);
+
 export const globalCamera = {
-  pos: new THREE.Vector3(-15, 0, 45), // Initial Saturn Orbit `pos`
-  lookAt: new THREE.Vector3(-15, 0, -45) // Saturn `lookAt`
+  pos: new THREE.Vector3(
+    HERO_CENTER.x + Math.cos(HERO_START_ANGLE) * HERO_RADIUS,
+    HERO_CENTER.y,
+    HERO_CENTER.z + Math.sin(HERO_START_ANGLE) * HERO_RADIUS
+  ),
+  lookAt: HERO_CENTER.clone()
 };
 
 function CameraRig() {
-  const currentPos = useRef(new THREE.Vector3(-15, 0, 45));
-  const currentLookAt = useRef(new THREE.Vector3(-15, 0, -45));
+  const currentPos = useRef(globalCamera.pos.clone());
+  const currentLookAt = useRef(globalCamera.lookAt.clone());
 
   useFrame((state) => {
     // 1. Base Target
@@ -514,9 +537,11 @@ export default function App() {
   useGSAP(() => {
     // CONSTANTS FOR ORBITS (Hardcoded to match 3D Mesh positions)
     const saturnLookAt = new THREE.Vector3(-15, 0, -45);
-    const saturnRadius = 90;
     const saturnHighRadius = 120;
     const saturnHighY = 35;
+
+    const enceladusLookAt = new THREE.Vector3(-40, -5, 405);
+    const enceladusRadius = 15;
 
     const ceresLookAt = new THREE.Vector3(150, 20, -100);
     const ceresRadius = 50;
@@ -524,51 +549,45 @@ export default function App() {
     const makemakeLookAt = new THREE.Vector3(-150, -30, 50);
     const makemakeRadius = 60;
 
-    // --- 1. HERO (ORBIT SATURN) ---
-    const saturnOrbit = { angle: Math.PI / 2 }; // Start directly in front
+    const HERO_START_ANGLE = Math.PI * 0.45;
+    const HERO_END_ANGLE = Math.PI * 0.6;
+
+    // --- 1. HERO (ORBIT ENCELADUS) ---
+    const enceladusOrbit = { angle: HERO_START_ANGLE };
     ScrollTrigger.create({
       trigger: "#hero",
       start: "top top",
       end: "+=1500",
       pin: true,
-      animation: gsap.fromTo(saturnOrbit,
-        { angle: Math.PI / 2 },
-        {
-          angle: Math.PI, // Orbit to the Left
-          ease: "none",
-          immediateRender: false,
-          onUpdate: () => {
-            globalCamera.pos.x = saturnLookAt.x + Math.cos(saturnOrbit.angle) * saturnRadius;
-            globalCamera.pos.z = saturnLookAt.z + Math.sin(saturnOrbit.angle) * saturnRadius;
-            globalCamera.pos.y = 0;
-            globalCamera.lookAt.copy(saturnLookAt);
-          }
-        }
-      ),
+      animation: gsap.to(enceladusOrbit, { angle: HERO_END_ANGLE, ease: "none" }),
       scrub: true,
+      onUpdate: (self) => {
+        if (!self.isActive) return;
+        globalCamera.pos.x = enceladusLookAt.x + Math.cos(enceladusOrbit.angle) * enceladusRadius;
+        globalCamera.pos.z = enceladusLookAt.z + Math.sin(enceladusOrbit.angle) * enceladusRadius;
+        globalCamera.pos.y = enceladusLookAt.y;
+        globalCamera.lookAt.copy(enceladusLookAt);
+      }
     });
 
-    // --- 2. TRAVEL (SATURN TO CERES) ---
-    // Start matches END of Saturn orbit (angle = PI)
-    // End matches START of Ceres orbit (angle = PI)
-    gsap.fromTo(globalCamera.pos,
-      { x: saturnLookAt.x - saturnRadius, y: 0, z: saturnLookAt.z },
-      {
-        x: ceresLookAt.x - ceresRadius, y: ceresLookAt.y, z: ceresLookAt.z,
-        ease: "expo.inOut",
-        immediateRender: false,
-        scrollTrigger: { trigger: "#gap-to-payloads", start: "top bottom", endTrigger: "#payloads", end: "top 20%", scrub: 1 }
+    // --- 2. TRAVEL (ENCELADUS TO CERES) ---
+    const travel1Pos = {
+      x: enceladusLookAt.x + Math.cos(HERO_END_ANGLE) * enceladusRadius,
+      y: enceladusLookAt.y,
+      z: enceladusLookAt.z + Math.sin(HERO_END_ANGLE) * enceladusRadius
+    };
+    const travel1LookAt = { x: enceladusLookAt.x, y: enceladusLookAt.y, z: enceladusLookAt.z };
+    ScrollTrigger.create({
+      trigger: "#gap-to-payloads", start: "top bottom", endTrigger: "#payloads", end: "top 20%", scrub: 1,
+      animation: gsap.timeline()
+        .to(travel1Pos, { x: ceresLookAt.x - ceresRadius, y: ceresLookAt.y, z: ceresLookAt.z, ease: "expo.inOut" }, 0)
+        .to(travel1LookAt, { x: ceresLookAt.x, y: ceresLookAt.y, z: ceresLookAt.z, ease: "expo.inOut" }, 0),
+      onUpdate: (self) => {
+        if (!self.isActive) return;
+        globalCamera.pos.copy(travel1Pos);
+        globalCamera.lookAt.copy(travel1LookAt);
       }
-    );
-    gsap.fromTo(globalCamera.lookAt,
-      { x: saturnLookAt.x, y: saturnLookAt.y, z: saturnLookAt.z },
-      {
-        x: ceresLookAt.x, y: ceresLookAt.y, z: ceresLookAt.z,
-        ease: "expo.inOut",
-        immediateRender: false,
-        scrollTrigger: { trigger: "#gap-to-payloads", start: "top bottom", endTrigger: "#payloads", end: "top 20%", scrub: 1 }
-      }
-    );
+    });
 
     // --- 3. PAYLOADS (ORBIT CERES) ---
     const ceresOrbit = { angle: Math.PI }; // Start Left
@@ -577,21 +596,15 @@ export default function App() {
       start: "top 20%",
       end: "+=2000",
       pin: true,
-      animation: gsap.fromTo(ceresOrbit,
-        { angle: Math.PI },
-        {
-          angle: Math.PI / 2, // End Front
-          ease: "none",
-          immediateRender: false,
-          onUpdate: () => {
-            globalCamera.pos.x = ceresLookAt.x + Math.cos(ceresOrbit.angle) * ceresRadius;
-            globalCamera.pos.z = ceresLookAt.z + Math.sin(ceresOrbit.angle) * ceresRadius;
-            globalCamera.pos.y = ceresLookAt.y;
-            globalCamera.lookAt.copy(ceresLookAt);
-          }
-        }
-      ),
+      animation: gsap.to(ceresOrbit, { angle: Math.PI / 2, ease: "none" }),
       scrub: true,
+      onUpdate: (self) => {
+        if (!self.isActive) return;
+        globalCamera.pos.x = ceresLookAt.x + Math.cos(ceresOrbit.angle) * ceresRadius;
+        globalCamera.pos.z = ceresLookAt.z + Math.sin(ceresOrbit.angle) * ceresRadius;
+        globalCamera.pos.y = ceresLookAt.y;
+        globalCamera.lookAt.copy(ceresLookAt);
+      }
     });
 
     // Independent entrace for payload cards (No Scrub, just entrance stagger)
@@ -601,26 +614,19 @@ export default function App() {
     });
 
     // --- 4. TRAVEL (CERES TO SATURN HIGH VIEW) ---
-    // Start matches END of Ceres orbit (angle = PI / 2)
-    // End matches START of Saturn High orbit (angle = PI / 2)
-    gsap.fromTo(globalCamera.pos,
-      { x: ceresLookAt.x, y: ceresLookAt.y, z: ceresLookAt.z + ceresRadius },
-      {
-        x: saturnLookAt.x, y: saturnHighY, z: saturnLookAt.z + saturnHighRadius,
-        ease: "expo.inOut",
-        immediateRender: false,
-        scrollTrigger: { trigger: "#gap-to-manifesto", start: "top bottom", endTrigger: "#manifesto", end: "center center", scrub: 1 }
+    const travel2Pos = { x: ceresLookAt.x, y: ceresLookAt.y, z: ceresLookAt.z + ceresRadius };
+    const travel2LookAt = { x: ceresLookAt.x, y: ceresLookAt.y, z: ceresLookAt.z };
+    ScrollTrigger.create({
+      trigger: "#gap-to-manifesto", start: "top bottom", endTrigger: "#manifesto", end: "center center", scrub: 1,
+      animation: gsap.timeline()
+        .to(travel2Pos, { x: saturnLookAt.x, y: saturnHighY, z: saturnLookAt.z + saturnHighRadius, ease: "expo.inOut" }, 0)
+        .to(travel2LookAt, { x: saturnLookAt.x, y: saturnLookAt.y, z: saturnLookAt.z, ease: "expo.inOut" }, 0),
+      onUpdate: (self) => {
+        if (!self.isActive) return;
+        globalCamera.pos.copy(travel2Pos);
+        globalCamera.lookAt.copy(travel2LookAt);
       }
-    );
-    gsap.fromTo(globalCamera.lookAt,
-      { x: ceresLookAt.x, y: ceresLookAt.y, z: ceresLookAt.z },
-      {
-        x: saturnLookAt.x, y: saturnLookAt.y, z: saturnLookAt.z,
-        ease: "expo.inOut",
-        immediateRender: false,
-        scrollTrigger: { trigger: "#gap-to-manifesto", start: "top bottom", endTrigger: "#manifesto", end: "center center", scrub: 1 }
-      }
-    );
+    });
 
     // --- 5. MANIFESTO (ORBIT SATURN HIGH VIEW) ---
     const saturnHighOrbit = { angle: Math.PI / 2 }; // Start Front
@@ -629,44 +635,31 @@ export default function App() {
       start: "center center",
       end: "+=1500",
       pin: true,
-      animation: gsap.fromTo(saturnHighOrbit,
-        { angle: Math.PI / 2 },
-        {
-          angle: 0, // End Right
-          ease: "none",
-          immediateRender: false,
-          onUpdate: () => {
-            globalCamera.pos.x = saturnLookAt.x + Math.cos(saturnHighOrbit.angle) * saturnHighRadius;
-            globalCamera.pos.z = saturnLookAt.z + Math.sin(saturnHighOrbit.angle) * saturnHighRadius;
-            globalCamera.pos.y = saturnHighY;
-            globalCamera.lookAt.copy(saturnLookAt);
-          }
-        }
-      ),
+      animation: gsap.to(saturnHighOrbit, { angle: 0, ease: "none" }),
       scrub: true,
+      onUpdate: (self) => {
+        if (!self.isActive) return;
+        globalCamera.pos.x = saturnLookAt.x + Math.cos(saturnHighOrbit.angle) * saturnHighRadius;
+        globalCamera.pos.z = saturnLookAt.z + Math.sin(saturnHighOrbit.angle) * saturnHighRadius;
+        globalCamera.pos.y = saturnHighY;
+        globalCamera.lookAt.copy(saturnLookAt);
+      }
     });
 
     // --- 6. TRAVEL (SATURN HIGH VIEW TO MAKEMAKE) ---
-    // Start matches END of Saturn High orbit (angle = 0)
-    // End matches START of Makemake orbit (angle = 0)
-    gsap.fromTo(globalCamera.pos,
-      { x: saturnLookAt.x + saturnHighRadius, y: saturnHighY, z: saturnLookAt.z },
-      {
-        x: makemakeLookAt.x + makemakeRadius, y: makemakeLookAt.y, z: makemakeLookAt.z,
-        ease: "expo.inOut",
-        immediateRender: false,
-        scrollTrigger: { trigger: "#gap-to-commlink", start: "top bottom", endTrigger: "#commlink", end: "center center", scrub: 1 }
+    const travel3Pos = { x: saturnLookAt.x + saturnHighRadius, y: saturnHighY, z: saturnLookAt.z };
+    const travel3LookAt = { x: saturnLookAt.x, y: saturnLookAt.y, z: saturnLookAt.z };
+    ScrollTrigger.create({
+      trigger: "#gap-to-commlink", start: "top bottom", endTrigger: "#commlink", end: "center center", scrub: 1,
+      animation: gsap.timeline()
+        .to(travel3Pos, { x: makemakeLookAt.x + makemakeRadius, y: makemakeLookAt.y, z: makemakeLookAt.z, ease: "expo.inOut" }, 0)
+        .to(travel3LookAt, { x: makemakeLookAt.x, y: makemakeLookAt.y, z: makemakeLookAt.z, ease: "expo.inOut" }, 0),
+      onUpdate: (self) => {
+        if (!self.isActive) return;
+        globalCamera.pos.copy(travel3Pos);
+        globalCamera.lookAt.copy(travel3LookAt);
       }
-    );
-    gsap.fromTo(globalCamera.lookAt,
-      { x: saturnLookAt.x, y: saturnLookAt.y, z: saturnLookAt.z },
-      {
-        x: makemakeLookAt.x, y: makemakeLookAt.y, z: makemakeLookAt.z,
-        ease: "expo.inOut",
-        immediateRender: false,
-        scrollTrigger: { trigger: "#gap-to-commlink", start: "top bottom", endTrigger: "#commlink", end: "center center", scrub: 1 }
-      }
-    );
+    });
 
     // --- 7. COMMLINK (ORBIT MAKEMAKE) ---
     const makemakeOrbit = { angle: 0 }; // Start aligned to the right
@@ -675,21 +668,15 @@ export default function App() {
       start: "center center",
       end: "+=1500",
       pin: true,
-      animation: gsap.fromTo(makemakeOrbit,
-        { angle: 0 },
-        {
-          angle: -Math.PI / 2, // Orbit 90 degrees to face front
-          ease: "none",
-          immediateRender: false,
-          onUpdate: () => {
-            globalCamera.pos.x = makemakeLookAt.x + Math.cos(makemakeOrbit.angle) * makemakeRadius;
-            globalCamera.pos.z = makemakeLookAt.z + Math.sin(makemakeOrbit.angle) * makemakeRadius;
-            globalCamera.pos.y = makemakeLookAt.y;
-            globalCamera.lookAt.copy(makemakeLookAt);
-          }
-        }
-      ),
+      animation: gsap.to(makemakeOrbit, { angle: -Math.PI / 2, ease: "none" }),
       scrub: true,
+      onUpdate: (self) => {
+        if (!self.isActive) return;
+        globalCamera.pos.x = makemakeLookAt.x + Math.cos(makemakeOrbit.angle) * makemakeRadius;
+        globalCamera.pos.z = makemakeLookAt.z + Math.sin(makemakeOrbit.angle) * makemakeRadius;
+        globalCamera.pos.y = makemakeLookAt.y;
+        globalCamera.lookAt.copy(makemakeLookAt);
+      }
     });
 
     // --- 8. FOOTER SLOW REVEAL ---
