@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: theme('colors.void');
+    color: theme('colors.ice');
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: theme('colors.void');
+  }
+  ::-webkit-scrollbar-thumb {
+    background: theme('colors.telemetry / 20%');
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.telemetry / 50%');
+  }
+}
+
+@layer utilities {
+  .text-shadow-titan {
+    text-shadow: 0 0 20px theme('colors.titan / 30%');
+  }
+  
+  .glass-panel {
+    @apply bg-void/40 backdrop-blur-2xl border border-white/5;
+  }
+}
