@@ -280,12 +280,12 @@ function Hero() {
         <h2 className="hero-anim font-serif text-6xl md:text-8xl italic text-ice mb-8 leading-tight">We Make Things That<br />Dont Exist Yet.</h2>
         <p className="hero-anim font-mono text-telemetry text-lg md:text-xl max-w-2xl mx-auto">High-fidelity digital experiences and mobile utilities.</p>
 
-        <div className="hero-anim mt-12 cursor-pointer flex items-center justify-center space-x-3 group mx-auto w-fit">
+        <a href="#payloads" className="hero-anim mt-12 cursor-pointer flex items-center justify-center space-x-3 group mx-auto w-fit no-underline">
           <div className="w-12 h-12 rounded-full border border-titan flex items-center justify-center group-hover:bg-titan transition-all duration-300">
             <ArrowRight className="text-titan group-hover:text-void w-5 h-5 transition-colors" />
           </div>
           <span className="font-mono text-sm tracking-widest text-titan uppercase">Explore Portfolio</span>
-        </div>
+        </a>
       </div>
     </section>
   );
@@ -301,109 +301,111 @@ function Payloads() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-20">
             <h3 className="font-mono text-sm tracking-[0.2em] text-titan mb-4">// OUR WORK</h3>
-            <h2 className="font-sans font-bold text-4xl md:text-5xl uppercase tracking-wider">Portfolio</h2>
+            <h2 className="font-sans font-bold text-4xl md:text-5xl uppercase tracking-wider text-ice">Portfolio</h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="overflow-hidden w-full relative">
+            <div className="payloads-track flex w-[200%]">
 
-            {/* APP 01 - Tachyon */}
-            <div className="payload-card group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)]">
-              <div className="absolute inset-0 bg-gradient-to-br from-titan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 relative overflow-hidden flex flex-col font-mono text-xs">
-                <div className="flex items-center space-x-2 mb-6 border-b border-white/10 pb-4">
-                  <Terminal className="w-4 h-4 text-telemetry" />
-                  <span className="text-telemetry">tachyon-cli ~ bash</span>
-                </div>
-                <div className="space-y-2 text-green-400/80 mt-2">
-                  <p>&gt; tachyon init --workspace</p>
-                  <p className="text-telemetry animate-pulse">Initializing local environment...</p>
-                  <p>&gt; workspace configured at 40.6895° N</p>
-                  <p>&gt; loading core modules...</p>
-                  <div className="w-2 h-4 bg-titan animate-ping mt-4" />
-                </div>
-              </div>
-              <div className="p-8 pb-4 relative z-10">
-                <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ DESKTOP / CLI ]</span>
-                <h4 className="font-sans text-2xl font-bold mb-2 text-ice">Tachyon</h4>
-                <p className="font-mono text-sm text-telemetry mb-6">Advanced development tooling for engineers.</p>
-                <button className="font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-6 py-3 rounded-full transition-all w-full md:w-auto uppercase tracking-wider">
-                  View Details
-                </button>
-              </div>
-            </div>
+              {/* GROUP 1: Apps 1 & 2 */}
+              <div className="w-1/2 flex flex-col lg:flex-row gap-8 pr-4">
 
-            {/* APP 02 - Axiom */}
-            <div className="payload-card group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)]">
-              <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 flex items-center justify-center relative overflow-hidden">
-                {/* App Mockup */}
-                <div className="w-[280px] h-full bg-void border-x border-t border-white/10 rounded-t-[2.5rem] p-4 relative translate-y-8 group-hover:translate-y-4 transition-transform duration-700 ease-out shadow-2xl">
-                  <div className="w-12 h-1.5 bg-white/10 rounded-full mx-auto mb-6" />
-                  <div className="space-y-4">
-                    <div className="h-12 rounded-xl bg-white/5 flex items-center px-4 border border-white/5">
-                      <Shield className="w-4 h-4 text-titan mr-3" />
-                      <div className="h-2 w-24 bg-white/10 rounded-full" />
-                    </div>
-                    <div className="h-32 rounded-xl bg-gradient-to-br from-titan/10 to-transparent border border-titan/20 p-4">
-                      <Activity className="w-5 h-5 text-signal mb-4" />
-                      <div className="space-y-2">
-                        <div className="h-2 w-full bg-white/10 rounded-full" />
-                        <div className="h-2 w-2/3 bg-white/10 rounded-full" />
+                {/* APP 01 - CoDRAG */}
+                <div className="payload-card flex-1 group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl">
+                  <div className="absolute inset-0 bg-gradient-to-br from-titan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 relative overflow-hidden flex flex-col justify-center items-center font-mono text-xs">
+                    {/* Desktop Mockup Shape */}
+                    <div className="w-[90%] h-[90%] bg-void border border-white/10 rounded-lg shadow-2xl relative overflow-hidden flex flex-col">
+                      <div className="h-6 border-b border-white/10 bg-white/5 flex items-center px-2 space-x-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                      </div>
+                      <div className="flex-1 bg-gradient-to-br from-void to-white/5 flex items-center justify-center relative p-8">
+                        <img src="/CoDrag-Logo2.png" alt="CoDRAG Logo" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity drop-shadow-2xl" />
                       </div>
                     </div>
                   </div>
+                  <div className="p-8 pb-4 relative z-10 w-full h-full">
+                    <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ DESKTOP / APP ]</span>
+                    <h4 className="font-sans text-2xl font-bold mb-2 text-ice">CoDRAG</h4>
+                    <p className="font-mono text-sm text-telemetry mb-6">The Context Engine for AI-Assisted Software Engineering.</p>
+                    <a href="https://codrag.io" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-6 py-3 rounded-full transition-all w-full md:w-auto text-center uppercase tracking-wider">
+                      View Website
+                    </a>
+                  </div>
                 </div>
+
+                {/* APP 02 - HomeColab */}
+                <div className="payload-card flex-1 group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl">
+                  <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 flex flex-col items-center justify-end relative overflow-hidden">
+                    {/* iOS Mockup */}
+                    <div className="w-[140px] h-[200px] bg-void border-x border-t border-white/10 rounded-t-[2rem] p-2 relative translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out shadow-2xl flex flex-col">
+                      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-4" />
+                      <div className="flex-1 bg-gradient-to-t from-void to-white/5 rounded-xl flex items-center justify-center p-4">
+                        <img src="/HomeColab-logo.png" alt="HomeColab Logo" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-8 pb-4 relative z-10">
+                    <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ iOS / MOBILE ]</span>
+                    <h4 className="font-sans text-2xl font-bold mb-2 text-ice">HomeColab</h4>
+                    <p className="font-mono text-sm text-telemetry mb-6">The Future of Real Estate Collaboration.</p>
+                    <a href="https://homecolab.app" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-6 py-3 rounded-full transition-all w-full md:w-auto text-center uppercase tracking-wider">
+                      View Website
+                    </a>
+                  </div>
+                </div>
+
               </div>
-              <div className="p-8 pb-4 relative z-10">
-                <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ iOS / MOBILE ]</span>
-                <h4 className="font-sans text-2xl font-bold mb-2 text-ice">Axiom</h4>
-                <p className="font-mono text-sm text-telemetry mb-6">Privacy-first mobile utility.</p>
-                <button className="font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-6 py-3 rounded-full transition-all w-full md:w-auto uppercase tracking-wider">
-                  View Details
-                </button>
+
+              {/* GROUP 2: Apps 3 & 4 */}
+              <div className="w-1/2 flex flex-col lg:flex-row gap-8 pl-4">
+
+                {/* APP 03 - DinnerVision */}
+                <div className="payload-card flex-1 group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl">
+                  <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 flex flex-col items-center justify-end relative overflow-hidden">
+                    {/* iOS Mockup */}
+                    <div className="w-[140px] h-[200px] bg-void border-x border-t border-white/10 rounded-t-[2rem] p-2 relative translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out shadow-2xl flex flex-col">
+                      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-4" />
+                      <div className="flex-1 bg-gradient-to-t from-void to-white/5 rounded-xl flex items-center justify-center p-4">
+                        <img src="/DinnerVision_v2.png" alt="DinnerVision Logo" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity scale-125" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-8 pb-4 relative z-10">
+                    <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ iOS / MOBILE ]</span>
+                    <h4 className="font-sans text-2xl font-bold mb-2 text-ice">DinnerVision</h4>
+                    <p className="font-mono text-sm text-telemetry mb-6">Turn What You Have Into What You Can Cook.</p>
+                    <a href="https://dinner.vision" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-6 py-3 rounded-full transition-all w-full md:w-auto text-center uppercase tracking-wider">
+                      View Website
+                    </a>
+                  </div>
+                </div>
+
+                {/* APP 04 - DebateHaus */}
+                <div className="payload-card flex-1 group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl">
+                  <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 flex flex-col items-center justify-end relative overflow-hidden">
+                    {/* iOS Mockup */}
+                    <div className="w-[140px] h-[200px] bg-void border-x border-t border-white/10 rounded-t-[2rem] p-2 relative translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out shadow-2xl flex flex-col">
+                      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-4" />
+                      <div className="flex-1 bg-gradient-to-t from-void to-white/5 rounded-xl flex items-center justify-center p-4">
+                        <img src="/DebateHaus_LogoColor.png" alt="DebateHaus Logo" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity scale-125" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-8 pb-4 relative z-10">
+                    <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ iOS / MOBILE ]</span>
+                    <h4 className="font-sans text-2xl font-bold mb-2 text-ice">DebateHaus</h4>
+                    <p className="font-mono text-sm text-telemetry mb-6">Elevating the Digital Public Square.</p>
+                    <a href="https://debate.haus" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-6 py-3 rounded-full transition-all w-full md:w-auto text-center uppercase tracking-wider">
+                      View Website
+                    </a>
+                  </div>
+                </div>
+
               </div>
             </div>
-
-            {/* APP 03 - Project 3 */}
-            <div className="payload-card group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)]">
-              <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 flex flex-col items-center justify-center relative overflow-hidden">
-                <div className="w-32 h-32 rounded-[2rem] border-2 border-dashed border-titan/30 flex items-center justify-center animate-spin-slow">
-                  <div className="w-16 h-16 rounded-full border border-titan/50 group-hover:scale-150 transition-transform duration-700" />
-                </div>
-                <p className="mt-8 font-mono text-xs tracking-widest text-titan/50 uppercase">Securing Data</p>
-              </div>
-              <div className="p-8 pb-4 relative z-10">
-                <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ iOS / MOBILE ]</span>
-                <h4 className="font-sans text-2xl font-bold mb-2 text-ice">Project 3</h4>
-                <p className="font-mono text-sm text-telemetry mb-6">Currently in private beta testing.</p>
-                <button className="font-mono text-xs text-telemetry border border-white/5 px-6 py-3 rounded-full uppercase tracking-wider w-full md:w-auto cursor-not-allowed opacity-50 flex items-center justify-center">
-                  <Lock className="w-3 h-3 mr-2" /> Locked
-                </button>
-              </div>
-            </div>
-
-            {/* APP 04 - Project 4 */}
-            <div className="payload-card group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)]">
-              <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 flex flex-col justify-center relative overflow-hidden">
-                <div className="space-y-4 opacity-30 px-4">
-                  <div className="h-4 w-3/4 bg-telemetry hidden-block" />
-                  <div className="h-4 w-full bg-telemetry hidden-block" />
-                  <div className="h-4 w-5/6 bg-telemetry hidden-block" />
-                  <div className="h-4 w-1/2 bg-telemetry hidden-block" />
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center backdrop-blur-[2px]">
-                  <div className="font-mono text-4xl text-ice font-bold">T-MINUS</div>
-                </div>
-              </div>
-              <div className="p-8 pb-4 relative z-10">
-                <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ iOS / MOBILE ]</span>
-                <h4 className="font-sans text-2xl font-bold mb-2 text-ice">Project 4</h4>
-                <p className="font-mono text-sm text-telemetry mb-6">Upcoming release.</p>
-                <button className="font-mono text-xs text-telemetry border border-white/5 px-6 py-3 rounded-full uppercase tracking-wider w-full md:w-auto cursor-not-allowed opacity-50 flex items-center justify-center">
-                  <Lock className="w-3 h-3 mr-2" /> Locked
-                </button>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
@@ -443,6 +445,34 @@ function Manifesto() {
 }
 
 function CommLink() {
+  const [formState, setFormState] = useState('idle'); // idle | sending | sent | error
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormState('sending');
+
+    const formData = new FormData(e.target);
+
+    try {
+      const res = await fetch('https://formspree.io/f/xpwdgvkn', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' },
+      });
+      if (res.ok) {
+        setFormState('sent');
+        e.target.reset();
+        setTimeout(() => setFormState('idle'), 5000);
+      } else {
+        setFormState('error');
+        setTimeout(() => setFormState('idle'), 4000);
+      }
+    } catch {
+      setFormState('error');
+      setTimeout(() => setFormState('idle'), 4000);
+    }
+  };
+
   return (
     <>
       <div id="gap-to-commlink" className="h-[150vh] pointer-events-none" />
@@ -476,22 +506,34 @@ function CommLink() {
             {/* Form */}
             <div className="bg-[#030305] border border-white/5 rounded-[2rem] p-8 font-mono">
               <h4 className="text-ice mb-8 pb-4 border-b border-white/10">Secure Contact Form</h4>
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label className="block text-xs text-telemetry mb-2 tracking-widest uppercase">Email Address</label>
-                  <input type="email" className="w-full bg-void border border-white/10 rounded-xl p-4 text-ice focus:border-titan focus:outline-none focus:ring-1 focus:ring-titan transition-all" placeholder="Enter email..." />
+                  <input name="email" type="email" required className="w-full bg-void border border-white/10 rounded-xl p-4 text-ice focus:border-titan focus:outline-none focus:ring-1 focus:ring-titan transition-all" placeholder="Enter email..." />
                 </div>
                 <div>
                   <label className="block text-xs text-telemetry mb-2 tracking-widest uppercase">Subject</label>
-                  <input type="text" className="w-full bg-void border border-white/10 rounded-xl p-4 text-ice focus:border-titan focus:outline-none focus:ring-1 focus:ring-titan transition-all" placeholder="How can we help?" />
+                  <input name="subject" type="text" required className="w-full bg-void border border-white/10 rounded-xl p-4 text-ice focus:border-titan focus:outline-none focus:ring-1 focus:ring-titan transition-all" placeholder="How can we help?" />
                 </div>
                 <div>
                   <label className="block text-xs text-telemetry mb-2 tracking-widest uppercase">Message</label>
-                  <textarea rows="4" className="w-full bg-void border border-white/10 rounded-xl p-4 text-ice focus:border-titan focus:outline-none focus:ring-1 focus:ring-titan transition-all resize-none" placeholder="Type message..."></textarea>
+                  <textarea name="message" rows="4" required className="w-full bg-void border border-white/10 rounded-xl p-4 text-ice focus:border-titan focus:outline-none focus:ring-1 focus:ring-titan transition-all resize-none" placeholder="Type message..."></textarea>
                 </div>
-                <button type="submit" className="w-full bg-titan hover:bg-titan/80 text-void font-bold py-4 rounded-xl transition-all uppercase tracking-widest text-sm flex justify-center items-center group">
-                  Send Message
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                <button
+                  type="submit"
+                  disabled={formState === 'sending'}
+                  className={`w-full font-bold py-4 rounded-xl transition-all uppercase tracking-widest text-sm flex justify-center items-center group ${
+                    formState === 'sent'
+                      ? 'bg-signal text-void'
+                      : formState === 'error'
+                        ? 'bg-red-500 text-white'
+                        : 'bg-titan hover:bg-titan/80 text-void'
+                  } ${formState === 'sending' ? 'opacity-70 cursor-wait' : ''}`}
+                >
+                  {formState === 'idle' && <>Send Message <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" /></>}
+                  {formState === 'sending' && 'Encrypting...'}
+                  {formState === 'sent' && 'Transmission Received.'}
+                  {formState === 'error' && 'Transmission Failed. Retry.'}
                 </button>
               </form>
             </div>
@@ -589,15 +631,22 @@ export default function App() {
       }
     });
 
-    // --- 3. PAYLOADS (ORBIT CERES) ---
+    // --- 3. PAYLOADS (ORBIT CERES) & HORIZONTAL SCROLL ---
     const ceresOrbit = { angle: Math.PI }; // Start Left
+
+    const payloadTl = gsap.timeline();
+    // 1. Camera pans the entire duration (0 to 4s)
+    payloadTl.to(ceresOrbit, { angle: Math.PI / 2, ease: "none", duration: 4 }, 0);
+    // 2. Track waits 1s, slides over 2s to reveal next 2 apps, then waits 1s
+    payloadTl.to(".payloads-track", { xPercent: -50, ease: "power2.inOut", duration: 2 }, 1);
+
     ScrollTrigger.create({
       trigger: "#payloads",
       start: "top 20%",
-      end: "+=2000",
+      end: "+=3500", // slightly longer to accommodate the swipe reading time
       pin: true,
-      animation: gsap.to(ceresOrbit, { angle: Math.PI / 2, ease: "none" }),
-      scrub: true,
+      animation: payloadTl,
+      scrub: 1,
       onUpdate: (self) => {
         if (!self.isActive) return;
         globalCamera.pos.x = ceresLookAt.x + Math.cos(ceresOrbit.angle) * ceresRadius;
@@ -608,10 +657,8 @@ export default function App() {
     });
 
     // Independent entrace for payload cards (No Scrub, just entrance stagger)
-    gsap.from(".payload-card", {
-      scrollTrigger: { trigger: "#payloads", start: "top 20%" },
-      y: 60, opacity: 0, duration: 1, ease: "power2.out", stagger: 0.15
-    });
+    // Removed to fix a bug where cards get stuck at opacity: 0
+    // gs ap.from(".payload-card", { ... });
 
     // --- 4. TRAVEL (CERES TO SATURN HIGH VIEW) ---
     const travel2Pos = { x: ceresLookAt.x, y: ceresLookAt.y, z: ceresLookAt.z + ceresRadius };
