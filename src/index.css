@@ -2,34 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    background-color: theme('colors.void');
-    color: theme('colors.ice');
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: theme('colors.void');
-  }
-  ::-webkit-scrollbar-thumb {
-    background: theme('colors.telemetry / 20%');
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: theme('colors.telemetry / 50%');
+@layer utilities {
+  .text-shadow-titan {
+    text-shadow: 0 0 20px rgba(229, 141, 87, 0.3), 0 0 40px rgba(229, 141, 87, 0.1);
   }
 }
 
-@layer utilities {
-  .text-shadow-titan {
-    text-shadow: 0 0 20px theme('colors.titan / 30%');
-  }
-  
-  .glass-panel {
-    @apply bg-void/40 backdrop-blur-2xl border border-white/5;
-  }
+html {
+  font-family: 'JetBrains Mono', monospace;
+  background-color: #030305;
+  /* void text */
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030305;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #252830;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E58D57;
+}
+
+.glass-panel {
+  background: rgba(5, 5, 8, 0.4);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel-blur {
+  backdrop-filter: blur(20px);
+}
+
+/* 
+  Fix GSAP pinning jump by ensuring the pin-spacer has a rigid box 
+*/
+.pin-spacer {
+  margin: 0 !important;
+  padding: 0 !important;
 }
