@@ -4,6 +4,8 @@ import { Sphere, Ring, Icosahedron, Stars, useTexture } from '@react-three/drei'
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { MagneticParticles, EnceladusParticles, CeresParticles, MakemakeParticles, SaturnParticles } from './particles';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Terminal, Smartphone, Lock, Activity, Shield, ArrowRight, XSquare, MessageSquare } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 
@@ -134,6 +136,8 @@ function SaturnScene() {
           </Sphere>
 
           <SaturnRings ringMap={ringMap} />
+
+          <SaturnParticles />
         </group>
       </group>
 
@@ -146,6 +150,7 @@ function SaturnScene() {
           metalness={0.0}
         />
       </Sphere>
+      <EnceladusParticles position={[-40, -5, 405]} />
 
       {/* Ceres */}
       <Sphere ref={ceresRef} args={[3.5, 32, 32]} position={[150, 20, -100]}>
@@ -156,6 +161,7 @@ function SaturnScene() {
           metalness={0.1}
         />
       </Sphere>
+      <CeresParticles position={[150, 20, -100]} />
 
       {/* Makemake */}
       <Sphere ref={makemakeRef} args={[5.5, 32, 32]} position={[-150, -30, 50]}>
@@ -165,6 +171,7 @@ function SaturnScene() {
           metalness={0.0}
         />
       </Sphere>
+      <MakemakeParticles position={[-150, -30, 50]} />
 
       <AsteroidField count={1500} />
 
@@ -272,7 +279,7 @@ function Hero() {
   }, { scope: container });
 
   return (
-    <section id="hero" ref={container} className="relative h-[100dvh] flex items-center justify-center px-6">
+    <section id="hero" ref={container} className="relative w-full h-[100dvh] flex items-center justify-center px-6">
       <div className="text-center z-10 max-w-4xl mx-auto mt-20">
         <div className="hero-anim inline-block mb-6 px-4 py-1.5 border border-titan/30 rounded-full bg-titan/10">
           <p className="font-mono text-xs tracking-[0.2em] text-titan">SYSTEM ONLINE</p>
@@ -297,114 +304,302 @@ function Payloads() {
   return (
     <>
       <div id="gap-to-payloads" className="h-[150vh] pointer-events-none" />
-      <section id="payloads" ref={container} className="py-32 px-6 relative z-10">
-        <div className="max-w-7xl mx-auto">
+      <section id="payloads" ref={container} className="w-full min-h-[100dvh] flex flex-col justify-center py-12 px-6 relative z-10">
+        <div className="max-w-[1400px] w-full px-4 md:px-8 mx-auto">
           <div className="mb-20">
             <h3 className="font-mono text-sm tracking-[0.2em] text-titan mb-4">// OUR WORK</h3>
             <h2 className="font-sans font-bold text-4xl md:text-5xl uppercase tracking-wider text-ice">Portfolio</h2>
           </div>
 
           <div className="overflow-hidden w-full relative">
-            <div className="payloads-track flex w-[200%]">
+            <div className="payloads-track flex w-[400%]">
 
-              {/* GROUP 1: Apps 1 & 2 */}
-              <div className="w-1/2 flex flex-col lg:flex-row gap-8 pr-4">
+              {/* APP 01 - CoDRAG */}
+              <div className="w-1/4 flex flex-col justify-center px-6">
+                <div className="payload-card w-full relative glass-panel rounded-[2.5rem] p-2 md:p-3 overflow-hidden transition-all duration-500 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl min-h-[650px]">
+                  <div className="absolute inset-0 bg-gradient-to-br from-titan/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative z-10 w-full h-full p-8 md:p-14 flex flex-col lg:flex-row gap-12 items-center">
 
-                {/* APP 01 - CoDRAG */}
-                <div className="payload-card flex-1 group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl">
-                  <div className="absolute inset-0 bg-gradient-to-br from-titan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 relative overflow-hidden flex flex-col justify-center items-center font-mono text-xs">
-                    {/* Desktop Mockup Shape */}
-                    <div className="w-[90%] h-[90%] bg-void border border-white/10 rounded-lg shadow-2xl relative overflow-hidden flex flex-col">
-                      <div className="h-6 border-b border-white/10 bg-white/5 flex items-center px-2 space-x-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                    {/* Text Column */}
+                    <div className="w-full lg:w-5/12">
+                      <div className="flex items-center space-x-4 mb-6">
+                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 p-2 flex items-center justify-center">
+                          <img src="/CoDrag-Logo2.png" alt="CoDRAG Icon" className="w-full h-full object-contain drop-shadow-md" />
+                        </div>
+                        <div>
+                          <span className="font-mono text-xs text-telemetry tracking-widest block">[ DESKTOP / APP ]</span>
+                          <h4 className="font-sans text-3xl font-bold text-ice">CoDRAG</h4>
+                        </div>
                       </div>
-                      <div className="flex-1 bg-gradient-to-br from-void to-white/5 flex items-center justify-center relative p-8">
-                        <img src="/CoDrag-Logo2.png" alt="CoDRAG Logo" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity drop-shadow-2xl" />
+
+                      <p className="font-mono text-sm text-telemetry mb-6 leading-relaxed">
+                        <strong className="text-ice">The Context Engine for AI-Assisted Software Engineering.</strong><br /><br />
+                        CoDRAG bridges the gap between massive, complex codebases and LLMs by providing precise, graph-augmented context. It uses advanced AST parsing to trace dependencies, effectively fighting Context Bloat and reducing token costs.
+                      </p>
+
+                      <div className="space-y-2 mb-8 font-mono text-xs text-telemetry">
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Native Semantic Search (Local ONNX)</p>
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Code Graph & Trace Expansion</p>
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Smart Token Compression (20:1 ratio)</p>
+                      </div>
+
+                      <a href="https://codrag.io" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-8 py-4 rounded-full transition-all uppercase tracking-wider">
+                        View Website
+                      </a>
+                    </div>
+
+                    {/* Mockup Column (Desktop) */}
+                    <div className="w-full lg:w-7/12 h-[550px] relative overflow-hidden flex items-center justify-center">
+                      <div className="w-[110%] h-full max-h-[450px] bg-void border border-white/10 rounded-xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col lg:translate-x-6">
+                        <div className="h-6 border-b border-white/10 bg-white/5 flex items-center px-2 space-x-1.5 z-10 relative">
+                          <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                          <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                          <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                          <span className="ml-4 font-mono text-[10px] text-white/30 tracking-widest">codrag-dashboard</span>
+                        </div>
+                        {/* Inner Scroll Container */}
+                        <div className="flex-1 relative overflow-hidden bg-gradient-to-br from-void to-white/5">
+                          <div className="mockup-inner-1 flex w-[200%] h-full">
+                            <div className="w-1/2 h-full flex items-center justify-center p-8 bg-black/40">
+                              <div className="text-center">
+                                <p className="font-mono text-sm text-titan mb-2">SCREEN 01 // DASHBOARD</p>
+                                <div className="w-32 h-32 mx-auto rounded-full border-2 border-dashed border-white/10 flex items-center justify-center animate-spin-slow">
+                                  <div className="w-16 h-16 bg-titan/20 blur-xl rounded-full" />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="w-1/2 h-full flex items-center justify-center p-8 bg-void">
+                              <div className="text-center w-full max-w-sm">
+                                <p className="font-mono text-sm text-signal mb-4">SCREEN 02 // TRACE GRAPH</p>
+                                <div className="space-y-3">
+                                  <div className="h-2 bg-white/10 rounded w-full" />
+                                  <div className="h-2 bg-white/10 rounded w-5/6" />
+                                  <div className="h-2 bg-white/10 rounded w-4/6" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="p-8 pb-4 relative z-10 w-full h-full">
-                    <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ DESKTOP / APP ]</span>
-                    <h4 className="font-sans text-2xl font-bold mb-2 text-ice">CoDRAG</h4>
-                    <p className="font-mono text-sm text-telemetry mb-6">The Context Engine for AI-Assisted Software Engineering.</p>
-                    <a href="https://codrag.io" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-6 py-3 rounded-full transition-all w-full md:w-auto text-center uppercase tracking-wider">
-                      View Website
-                    </a>
+
                   </div>
                 </div>
-
-                {/* APP 02 - HomeColab */}
-                <div className="payload-card flex-1 group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl">
-                  <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 flex flex-col items-center justify-end relative overflow-hidden">
-                    {/* iOS Mockup */}
-                    <div className="w-[140px] h-[200px] bg-void border-x border-t border-white/10 rounded-t-[2rem] p-2 relative translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out shadow-2xl flex flex-col">
-                      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-4" />
-                      <div className="flex-1 bg-gradient-to-t from-void to-white/5 rounded-xl flex items-center justify-center p-4">
-                        <img src="/HomeColab-logo.png" alt="HomeColab Logo" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-8 pb-4 relative z-10">
-                    <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ iOS / MOBILE ]</span>
-                    <h4 className="font-sans text-2xl font-bold mb-2 text-ice">HomeColab</h4>
-                    <p className="font-mono text-sm text-telemetry mb-6">The Future of Real Estate Collaboration.</p>
-                    <a href="https://homecolab.app" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-6 py-3 rounded-full transition-all w-full md:w-auto text-center uppercase tracking-wider">
-                      View Website
-                    </a>
-                  </div>
-                </div>
-
               </div>
 
-              {/* GROUP 2: Apps 3 & 4 */}
-              <div className="w-1/2 flex flex-col lg:flex-row gap-8 pl-4">
+              {/* APP 02 - HomeColab */}
+              <div className="w-1/4 flex flex-col justify-center px-6">
+                <div className="payload-card w-full relative glass-panel rounded-[2.5rem] p-2 md:p-3 overflow-hidden transition-all duration-500 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl min-h-[650px]">
+                  <div className="relative z-10 w-full h-full p-8 md:p-14 flex flex-col lg:flex-row gap-12 items-center">
 
-                {/* APP 03 - DinnerVision */}
-                <div className="payload-card flex-1 group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl">
-                  <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 flex flex-col items-center justify-end relative overflow-hidden">
-                    {/* iOS Mockup */}
-                    <div className="w-[140px] h-[200px] bg-void border-x border-t border-white/10 rounded-t-[2rem] p-2 relative translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out shadow-2xl flex flex-col">
-                      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-4" />
-                      <div className="flex-1 bg-gradient-to-t from-void to-white/5 rounded-xl flex items-center justify-center p-4">
-                        <img src="/DinnerVision_v2.png" alt="DinnerVision Logo" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity scale-125" />
+                    {/* Text Column */}
+                    <div className="w-full lg:w-5/12">
+                      <div className="flex items-center space-x-4 mb-6">
+                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 p-2 flex items-center justify-center">
+                          <img src="/HomeColab-logo.png" alt="HomeColab Icon" className="w-full h-full object-contain drop-shadow-md" />
+                        </div>
+                        <div>
+                          <span className="font-mono text-xs text-telemetry tracking-widest block">[ iOS / MOBILE ]</span>
+                          <h4 className="font-sans text-3xl font-bold text-ice">HomeColab</h4>
+                        </div>
+                      </div>
+
+                      <p className="font-mono text-sm text-telemetry mb-6 leading-relaxed">
+                        <strong className="text-ice">Stop scrolling. Start collaborating.</strong><br /><br />
+                        HomeColab is the ultimate shared workspace for homebuyers and a silent intelligence engine for real estate agents. It replaces messy group texts and notification noise with a structured, intent-driven experience.
+                      </p>
+
+                      <div className="space-y-2 mb-8 font-mono text-xs text-telemetry">
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Universal Link Unfurling</p>
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Partner Alignment & Heat Scores</p>
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Smart Agent Briefings</p>
+                      </div>
+
+                      <a href="https://homecolab.app" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-8 py-4 rounded-full transition-all uppercase tracking-wider">
+                        View Website
+                      </a>
+                    </div>
+
+                    {/* Mockup Column (Dual iOS) */}
+                    <div className="w-full lg:w-7/12 h-[550px] relative overflow-hidden flex items-center justify-center gap-10">
+                      {/* Phone 1 */}
+                      <div className="w-[210px] h-[420px] bg-void border border-white/10 rounded-[3rem] p-3 relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col z-20">
+                        <div className="w-16 h-2 bg-white/20 rounded-full mx-auto mb-4 absolute top-5 left-1/2 -translate-x-1/2 z-30" />
+                        <div className="flex-1 rounded-[1.75rem] overflow-hidden relative">
+                          <div className="mockup-inner-2 flex flex-col h-[200%] w-full">
+                            <div className="h-1/2 w-full bg-gradient-to-t from-void to-[#1A1A24] flex items-center justify-center p-4">
+                              <p className="font-mono flex-col flex text-center text-[10px] text-titan"><span className="text-[20px] mb-2 drop-shadow-md">🏡</span> SCREEN 1</p>
+                            </div>
+                            <div className="h-1/2 w-full bg-[#050508] border-t border-white/5 flex items-center justify-center p-4">
+                              <p className="font-mono text-[10px] text-telemetry">SCREEN 3</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Phone 2 (Slightly staggered) */}
+                      <div className="w-[210px] h-[420px] bg-void border border-white/10 rounded-[3rem] p-3 relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col translate-y-16 z-10">
+                        <div className="w-16 h-2 bg-white/20 rounded-full mx-auto mb-4 absolute top-5 left-1/2 -translate-x-1/2 z-30" />
+                        <div className="flex-1 rounded-[1.75rem] overflow-hidden relative">
+                          <div className="mockup-inner-2 flex flex-col h-[200%] w-full">
+                            <div className="h-1/2 w-full bg-gradient-to-b from-void to-[#111118] flex items-center justify-center p-4">
+                              <p className="font-mono text-[10px] text-telemetry">SCREEN 2</p>
+                            </div>
+                            <div className="h-1/2 w-full bg-[#030305] border-t border-white/5 flex flex-col items-center justify-center p-4">
+                              <p className="font-mono text-[10px] text-titan mb-3">SCREEN 4</p>
+                              <div className="w-full h-8 rounded-md bg-white/5" />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="p-8 pb-4 relative z-10">
-                    <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ iOS / MOBILE ]</span>
-                    <h4 className="font-sans text-2xl font-bold mb-2 text-ice">DinnerVision</h4>
-                    <p className="font-mono text-sm text-telemetry mb-6">Turn What You Have Into What You Can Cook.</p>
-                    <a href="https://dinner.vision" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-6 py-3 rounded-full transition-all w-full md:w-auto text-center uppercase tracking-wider">
-                      View Website
-                    </a>
+
                   </div>
                 </div>
-
-                {/* APP 04 - DebateHaus */}
-                <div className="payload-card flex-1 group relative glass-panel rounded-[2rem] p-1 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl">
-                  <div className="h-[300px] w-full bg-[#030305] rounded-[1.75rem] border border-white/5 p-6 flex flex-col items-center justify-end relative overflow-hidden">
-                    {/* iOS Mockup */}
-                    <div className="w-[140px] h-[200px] bg-void border-x border-t border-white/10 rounded-t-[2rem] p-2 relative translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out shadow-2xl flex flex-col">
-                      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-4" />
-                      <div className="flex-1 bg-gradient-to-t from-void to-white/5 rounded-xl flex items-center justify-center p-4">
-                        <img src="/DebateHaus_LogoColor.png" alt="DebateHaus Logo" className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity scale-125" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-8 pb-4 relative z-10">
-                    <span className="font-mono text-xs text-telemetry tracking-widest mb-3 block">[ iOS / MOBILE ]</span>
-                    <h4 className="font-sans text-2xl font-bold mb-2 text-ice">DebateHaus</h4>
-                    <p className="font-mono text-sm text-telemetry mb-6">Elevating the Digital Public Square.</p>
-                    <a href="https://debate.haus" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-6 py-3 rounded-full transition-all w-full md:w-auto text-center uppercase tracking-wider">
-                      View Website
-                    </a>
-                  </div>
-                </div>
-
               </div>
+
+              {/* APP 03 - DinnerVision */}
+              <div className="w-1/4 flex flex-col justify-center px-6">
+                <div className="payload-card w-full relative glass-panel rounded-[2.5rem] p-2 md:p-3 overflow-hidden transition-all duration-500 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl min-h-[650px]">
+                  <div className="relative z-10 w-full h-full p-8 md:p-14 flex flex-col lg:flex-row gap-12 items-center">
+
+                    {/* Text Column */}
+                    <div className="w-full lg:w-5/12">
+                      <div className="flex items-center space-x-4 mb-6">
+                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 p-2 flex items-center justify-center">
+                          <img src="/DinnerVision_v2.png" alt="DinnerVision Icon" className="w-full h-full object-contain drop-shadow-md scale-125" />
+                        </div>
+                        <div>
+                          <span className="font-mono text-xs text-telemetry tracking-widest block">[ iOS / MOBILE ]</span>
+                          <h4 className="font-sans text-3xl font-bold text-ice">DinnerVision</h4>
+                        </div>
+                      </div>
+
+                      <p className="font-mono text-sm text-telemetry mb-6 leading-relaxed">
+                        <strong className="text-ice">Turn what you have into what you can cook.</strong><br /><br />
+                        An intelligent mobile app designed to eliminate decision fatigue. Harnessing the power of computer vision, it instantly transforms the random ingredients in your fridge into delicious, actionable meal ideas.
+                      </p>
+
+                      <div className="space-y-2 mb-8 font-mono text-xs text-telemetry">
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Camera-First Ingredient Detection</p>
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Smart Pantry Assumptions</p>
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Custom Recipe Generation</p>
+                      </div>
+
+                      <a href="https://dinner.vision" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-8 py-4 rounded-full transition-all uppercase tracking-wider">
+                        View Website
+                      </a>
+                    </div>
+
+                    {/* Mockup Column (Dual iOS) */}
+                    <div className="w-full lg:w-7/12 h-[550px] relative overflow-hidden flex items-center justify-center gap-10">
+                      {/* Phone 1 */}
+                      <div className="w-[210px] h-[420px] bg-void border border-white/10 rounded-[3rem] p-3 relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col z-20">
+                        <div className="w-16 h-2 bg-white/20 rounded-full mx-auto mb-4 absolute top-5 left-1/2 -translate-x-1/2 z-30" />
+                        <div className="flex-1 rounded-[1.75rem] overflow-hidden relative">
+                          <div className="mockup-inner-3 flex flex-col h-[200%] w-full">
+                            <div className="h-1/2 w-full bg-gradient-to-t from-void to-[#201005] flex items-center justify-center p-4">
+                              <p className="font-mono flex-col flex text-center text-[10px] text-[#E58D57]"><span className="text-[20px] mb-2 drop-shadow-md">📸</span> SCAN</p>
+                            </div>
+                            <div className="h-1/2 w-full bg-[#050508] border-t border-white/5 flex items-center justify-center p-4">
+                              <p className="font-mono text-[10px] text-telemetry">RECIPE</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Phone 2 */}
+                      <div className="w-[210px] h-[420px] bg-void border border-white/10 rounded-[3rem] p-3 relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col translate-y-16 z-10">
+                        <div className="w-16 h-2 bg-white/20 rounded-full mx-auto mb-4 absolute top-5 left-1/2 -translate-x-1/2 z-30" />
+                        <div className="flex-1 rounded-[1.75rem] overflow-hidden relative">
+                          <div className="mockup-inner-3 flex flex-col h-[200%] w-full">
+                            <div className="h-1/2 w-full bg-gradient-to-b from-void to-[#111118] flex items-center justify-center p-4">
+                              <p className="font-mono text-[10px] text-telemetry">AI MATCH</p>
+                            </div>
+                            <div className="h-1/2 w-full bg-[#030305] border-t border-white/5 flex flex-col items-center justify-center p-4">
+                              <p className="font-mono text-[10px] text-signal mb-3">COOK MODE</p>
+                              <div className="w-full h-8 rounded-md bg-signal/10 border border-signal/20" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              {/* APP 04 - DebateHaus */}
+              <div className="w-1/4 flex flex-col justify-center px-6">
+                <div className="payload-card w-full relative glass-panel rounded-[2.5rem] p-2 md:p-3 overflow-hidden transition-all duration-500 hover:border-titan/50 hover:shadow-[0_0_40px_rgba(229,141,87,0.15)] bg-void/80 backdrop-blur-3xl min-h-[650px]">
+                  <div className="relative z-10 w-full h-full p-8 md:p-14 flex flex-col lg:flex-row gap-12 items-center">
+
+                    {/* Text Column */}
+                    <div className="w-full lg:w-5/12">
+                      <div className="flex items-center space-x-4 mb-6">
+                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 p-2 flex items-center justify-center">
+                          <img src="/DebateHaus_LogoColor.png" alt="DebateHaus Icon" className="w-full h-full object-contain drop-shadow-md scale-125" />
+                        </div>
+                        <div>
+                          <span className="font-mono text-xs text-telemetry tracking-widest block">[ iOS / MOBILE ]</span>
+                          <h4 className="font-sans text-3xl font-bold text-ice">DebateHaus</h4>
+                        </div>
+                      </div>
+
+                      <p className="font-mono text-sm text-telemetry mb-6 leading-relaxed">
+                        <strong className="text-ice">Elevating the Digital Public Square.</strong><br /><br />
+                        A video-first platform engineered to elevate the quality of online conversation. Moving beyond toxic comment threads, DebateHaus offers a structured, purpose-built format for civil, good-faith debate between creators, intellectuals, and institutions.
+                      </p>
+
+                      <div className="space-y-2 mb-8 font-mono text-xs text-telemetry">
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Structured Pre-Debate Negotiation</p>
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Private Video Recording Environment</p>
+                        <p className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-titan mr-2"></span> Co-Creator Publishing & Engagement</p>
+                      </div>
+
+                      <a href="https://debate.haus" target="_blank" rel="noreferrer" className="inline-block font-mono text-xs bg-white/5 hover:bg-titan hover:text-void text-ice border border-white/10 hover:border-titan px-8 py-4 rounded-full transition-all uppercase tracking-wider">
+                        View Website
+                      </a>
+                    </div>
+
+                    {/* Mockup Column (Dual iOS) */}
+                    <div className="w-full lg:w-7/12 h-[550px] relative overflow-hidden flex items-center justify-center gap-10">
+                      {/* Phone 1 */}
+                      <div className="w-[210px] h-[420px] bg-void border border-white/10 rounded-[3rem] p-3 relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col z-20">
+                        <div className="w-16 h-2 bg-white/20 rounded-full mx-auto mb-4 absolute top-5 left-1/2 -translate-x-1/2 z-30" />
+                        <div className="flex-1 rounded-[1.75rem] overflow-hidden relative">
+                          <div className="mockup-inner-4 flex flex-col h-[200%] w-full">
+                            <div className="h-1/2 w-full bg-gradient-to-t from-void to-[#101030] flex items-center justify-center p-4">
+                              <p className="font-mono flex-col flex text-center text-[10px] text-[#8B949E]"><span className="text-[20px] mb-2 drop-shadow-md">🎙️</span> INVITE</p>
+                            </div>
+                            <div className="h-1/2 w-full bg-[#050508] border-t border-white/5 flex items-center justify-center p-4">
+                              <p className="font-mono text-[10px] text-telemetry">RECORDING</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Phone 2 */}
+                      <div className="w-[210px] h-[420px] bg-void border border-white/10 rounded-[3rem] p-3 relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col translate-y-16 z-10">
+                        <div className="w-16 h-2 bg-white/20 rounded-full mx-auto mb-4 absolute top-5 left-1/2 -translate-x-1/2 z-30" />
+                        <div className="flex-1 rounded-[1.75rem] overflow-hidden relative">
+                          <div className="mockup-inner-4 flex flex-col h-[200%] w-full">
+                            <div className="h-1/2 w-full bg-gradient-to-b from-void to-[#111118] flex items-center justify-center p-4">
+                              <p className="font-mono text-[10px] text-telemetry">TERMS</p>
+                            </div>
+                            <div className="h-1/2 w-full bg-[#030305] border-t border-white/5 flex flex-col items-center justify-center p-4">
+                              <p className="font-mono text-[10px] text-ice mb-3">PUBLISHED</p>
+                              <div className="w-full h-12 rounded-lg bg-gradient-to-r from-void to-white/5 border border-white/5" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -430,7 +625,7 @@ function Manifesto() {
   return (
     <>
       <div id="gap-to-manifesto" className="h-[150vh] pointer-events-none" />
-      <section id="manifesto" ref={container} className="min-h-screen relative z-10 flex flex-col items-center justify-center px-6 pointer-events-none">
+      <section id="manifesto" ref={container} className="w-full min-h-screen relative z-10 flex flex-col items-center justify-center px-6 pointer-events-none">
         <div className="text-center max-w-5xl mx-auto space-y-12">
           <p className="manifesto-neutral font-mono text-sm md:text-base text-telemetry tracking-widest uppercase">
             Most software is noisy. Bloated. Distracting.
@@ -476,7 +671,7 @@ function CommLink() {
   return (
     <>
       <div id="gap-to-commlink" className="h-[150vh] pointer-events-none" />
-      <section id="commlink" className="py-32 px-6 relative z-10">
+      <section id="commlink" className="w-full py-32 px-6 relative z-10">
         <div className="max-w-7xl mx-auto glass-panel rounded-[3rem] p-8 md:p-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
 
@@ -522,13 +717,12 @@ function CommLink() {
                 <button
                   type="submit"
                   disabled={formState === 'sending'}
-                  className={`w-full font-bold py-4 rounded-xl transition-all uppercase tracking-widest text-sm flex justify-center items-center group ${
-                    formState === 'sent'
-                      ? 'bg-signal text-void'
-                      : formState === 'error'
-                        ? 'bg-red-500 text-white'
-                        : 'bg-titan hover:bg-titan/80 text-void'
-                  } ${formState === 'sending' ? 'opacity-70 cursor-wait' : ''}`}
+                  className={`w-full font-bold py-4 rounded-xl transition-all uppercase tracking-widest text-sm flex justify-center items-center group ${formState === 'sent'
+                    ? 'bg-signal text-void'
+                    : formState === 'error'
+                      ? 'bg-red-500 text-white'
+                      : 'bg-titan hover:bg-titan/80 text-void'
+                    } ${formState === 'sending' ? 'opacity-70 cursor-wait' : ''}`}
                 >
                   {formState === 'idle' && <>Send Message <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" /></>}
                   {formState === 'sending' && 'Encrypting...'}
@@ -601,6 +795,7 @@ export default function App() {
       start: "top top",
       end: "+=1500",
       pin: true,
+      anticipatePin: 1,
       animation: gsap.to(enceladusOrbit, { angle: HERO_END_ANGLE, ease: "none" }),
       scrub: true,
       onUpdate: (self) => {
@@ -631,20 +826,45 @@ export default function App() {
       }
     });
 
-    // --- 3. PAYLOADS (ORBIT CERES) & HORIZONTAL SCROLL ---
+    // --- 3. PAYLOADS (ORBIT CERES) & HORIZONTAL SCROLL & INNER SCROLL ---
     const ceresOrbit = { angle: Math.PI }; // Start Left
 
     const payloadTl = gsap.timeline();
-    // 1. Camera pans the entire duration (0 to 4s)
-    payloadTl.to(ceresOrbit, { angle: Math.PI / 2, ease: "none", duration: 4 }, 0);
-    // 2. Track waits 1s, slides over 2s to reveal next 2 apps, then waits 1s
-    payloadTl.to(".payloads-track", { xPercent: -50, ease: "power2.inOut", duration: 2 }, 1);
+    // Total duration: 16 virtual units
+    // 0 -> 16: Camera pans 180 degrees (PI to 0)
+    payloadTl.to(ceresOrbit, { angle: 0, ease: "none", duration: 16 }, 0);
+
+    // PANEL 1 (CoDRAG) Animation (0 -> 4)
+    // 0 -> 0.5: Wait
+    // 0.5 -> 2: Inner scroll
+    payloadTl.to(".mockup-inner-1", { xPercent: -50, ease: "power2.inOut", duration: 1.5 }, 0.5);
+    // 2 -> 2.5: Wait
+    // 2.5 -> 4: Swipe to Panel 2
+    payloadTl.to(".payloads-track", { xPercent: -25, ease: "power2.inOut", duration: 1.5 }, 2.5);
+
+    // PANEL 2 (HomeColab) Animation (4 -> 8)
+    // 4.5 -> 6: Inner scroll
+    payloadTl.to(".mockup-inner-2", { yPercent: -50, ease: "power2.inOut", duration: 1.5 }, 4.5);
+    // 6.5 -> 8: Swipe to Panel 3
+    payloadTl.to(".payloads-track", { xPercent: -50, ease: "power2.inOut", duration: 1.5 }, 6.5);
+
+    // PANEL 3 (DinnerVision) Animation (8 -> 12)
+    // 8.5 -> 10: Inner scroll
+    payloadTl.to(".mockup-inner-3", { yPercent: -50, ease: "power2.inOut", duration: 1.5 }, 8.5);
+    // 10.5 -> 12: Swipe to Panel 4
+    payloadTl.to(".payloads-track", { xPercent: -75, ease: "power2.inOut", duration: 1.5 }, 10.5);
+
+    // PANEL 4 (DebateHaus) Animation (12 -> 16)
+    // 12.5 -> 14: Inner scroll
+    payloadTl.to(".mockup-inner-4", { yPercent: -50, ease: "power2.inOut", duration: 1.5 }, 12.5);
+    // 14 -> 16: Wait and finish
 
     ScrollTrigger.create({
       trigger: "#payloads",
-      start: "top 20%",
-      end: "+=3500", // slightly longer to accommodate the swipe reading time
+      start: "center center",
+      end: "+=12000", // Double the previous duration
       pin: true,
+      anticipatePin: 1,
       animation: payloadTl,
       scrub: 1,
       onUpdate: (self) => {
@@ -682,6 +902,7 @@ export default function App() {
       start: "center center",
       end: "+=1500",
       pin: true,
+      anticipatePin: 1,
       animation: gsap.to(saturnHighOrbit, { angle: 0, ease: "none" }),
       scrub: true,
       onUpdate: (self) => {
@@ -715,6 +936,7 @@ export default function App() {
       start: "center center",
       end: "+=1500",
       pin: true,
+      anticipatePin: 1,
       animation: gsap.to(makemakeOrbit, { angle: -Math.PI / 2, ease: "none" }),
       scrub: true,
       onUpdate: (self) => {
@@ -744,7 +966,18 @@ export default function App() {
     <div ref={appContainer} className="relative w-full overflow-x-hidden selection:bg-titan/30 selection:text-titan">
       {/* WebGL Canvas sits behind everything */}
       <div className="fixed inset-0 z-0 bg-void pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 15], fov: 45, far: 5000 }}>
+        <Canvas
+          camera={{ position: [0, 0, 15], fov: 45, far: 5000 }}
+          gl={{ antialias: false, powerPreference: "high-performance" }}
+          dpr={[1, 1.5]}
+        >
+          <EffectComposer disableNormalPass>
+            <Bloom
+              luminanceThreshold={0.2}
+              mipmapBlur={true}
+              intensity={2.0}
+            />
+          </EffectComposer>
           <SaturnScene />
           <CameraRig />
         </Canvas>
