@@ -259,11 +259,9 @@ function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${navTransition} ${scrolled ? 'bg-[#030305]/80 backdrop-blur-[7px] py-4' : 'bg-transparent py-8'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${navTransition} ${scrolled ? 'bg-[#030305]/80 backdrop-blur-[7px] pt-[max(1rem,env(safe-area-inset-top))] pb-4' : 'bg-transparent pt-[max(2rem,env(safe-area-inset-top))] pb-8'}`}>
         <div className="max-w-7xl mx-auto px-6 relative flex items-center h-8">
-          <h1 className={`absolute whitespace-nowrap font-sans font-bold text-xl tracking-widest text-ice transition-all duration-500 ${contentTransition} ${scrolled ? 'left-6 -translate-x-0' : 'left-1/2 -translate-x-1/2'}`}>
-            MAGNETIC ANOMALY
-          </h1>
+          <h1 className={`absolute whitespace-nowrap w-max top-1/2 -translate-y-1/2 font-sans font-bold text-[1rem] sm:text-xl tracking-widest text-ice transition-all duration-500 ${contentTransition} ${scrolled ? 'left-6 -translate-x-0' : 'left-1/2 -translate-x-1/2'}`}>MAGNETIC ANOMALY</h1>
 
           {/* <div className={`hidden md:flex items-center space-x-8 absolute right-6 transition-all duration-500 ${contentTransition} ${scrolled ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
             <a href="#gap-to-payloads" className="font-mono text-sm text-telemetry hover:text-titan transition-colors">PORTFOLIO</a>
@@ -310,7 +308,7 @@ function Hero() {
 
   return (
     <section id="hero" ref={container} className="relative w-full h-[100dvh] flex items-center justify-center px-6">
-      <div className="text-center z-10 max-w-4xl mx-auto md:mt-20 mt-0">
+      <div className="text-center w-full z-10 max-w-4xl mx-auto md:mt-20 mt-0">
         <div className="hero-anim inline-block mb-6 px-4 py-1.5 opacity-0 pointer-events-none" style={{ height: '2rem' }}></div>
         <h2 className="hero-anim font-serif text-6xl md:text-8xl italic text-ice mb-8 leading-tight max-md:text-[3.5em] max-md:leading-[1.1] max-md:px-[0.3em] max-md:mt-[0.6em] drop-shadow-[1px_2px_30px_rgba(0,0,0,0.4)]">We Make Things That Don't Exist Yet.</h2>
         <div className="hero-anim relative w-screen ml-[calc(50%-50vw)] flex items-center justify-center my-6" style={{ height: '2.5rem' }}>
@@ -339,7 +337,7 @@ function Payloads() {
   return (
     <>
       <div id="gap-to-payloads" className="h-[150vh] pointer-events-none" />
-      <section id="payloads" ref={container} className="w-full min-h-[100dvh] flex flex-col justify-center pt-8 pb-12 md:py-12 relative z-10 max-md:h-[100dvh] max-md:justify-start max-md:pt-20 max-md:pb-2">
+      <section id="payloads" ref={container} className="w-full min-h-[100dvh] flex flex-col justify-center pt-8 pb-12 md:py-12 relative z-10 max-md:h-[100dvh] max-md:justify-start max-md:pt-8 max-md:pb-2">
 
         {/* Header matching Navbar width */}
         <div className="max-w-7xl w-full px-6 mx-auto mb-6 md:mb-12 lg:mb-20 max-md:mb-4 max-md:shrink-0">
@@ -671,8 +669,8 @@ function Manifesto() {
   return (
     <>
       <div id="gap-to-manifesto" className="h-[150vh] pointer-events-none" />
-      <section id="manifesto" ref={container} className="w-full min-h-screen relative z-10 flex flex-col items-center justify-center px-6 pointer-events-none">
-        <div className="text-center max-w-5xl mx-auto">
+      <section id="manifesto" ref={container} className="w-full h-[100dvh] relative z-10 flex flex-col items-center justify-center px-6 pointer-events-none">
+        <div className="text-center w-full max-w-5xl mx-auto">
           <div className="manifesto-neutral relative w-screen ml-[calc(50%-50vw)] flex items-center justify-center mb-[5em] md:mb-[10em]" style={{ height: '2.5rem' }}>
             <div className="subtitle-mask-manifesto absolute w-screen h-full bg-[#030305]/95 backdrop-blur-sm border-y border-white/5 flex items-center justify-center translate-z-0"
               style={{ clipPath: 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)' }}>
