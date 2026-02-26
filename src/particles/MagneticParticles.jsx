@@ -87,7 +87,7 @@ void main() {
   // Gaussian point sprite (tighter, less blurry dropoff)
   vec2 center = gl_PointCoord - vec2(0.5);
   float distsq = dot(center, center);
-  float alpha = exp(-distsq * 80.0); // Tighter Gaussian falloff for crisper dots
+  float alpha = exp(-distsq * 7.0); // Tighter Gaussian falloff for crisper dots
   
   // Discard corners
   if (alpha < 0.01) discard;

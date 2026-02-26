@@ -21,29 +21,43 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* Custom Scrollbar (Desktop only to prevent mobile offset issues) */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #030305;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #252830;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #E58D57;
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: #030305;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #252830;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #E58D57;
+@media (max-width: 767px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .glass-panel {
-  background: rgba(5, 5, 8, 0.4);
+  background: rgba(5, 5, 8, 0.65);
   backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(7px);
   border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 768px) {
+  .glass-panel {
+    background: rgba(5, 5, 8, 0.4);
+  }
 }
 
 .glass-panel-blur {

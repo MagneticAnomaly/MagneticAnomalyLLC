@@ -8,13 +8,13 @@ export function SaturnParticles(props) {
     return (
         <MagneticParticles
             {...props}
-            particleCount={2000}
+            particleCount={9000}
             planetRadius={10.0}
             rmaxRange={[20.0, 45.0]}
             baseSpeed={0.1}
-            pointSize={8.0}
-            cycleSpeed={0.3}
-            arcBands={16}
+            pointSize={2.0}
+            cycleSpeed={0.2}
+            arcBands={6}
             shellBands={5}
             tilt={props.tilt || defaultTilt}
         />
