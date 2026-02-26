@@ -337,7 +337,7 @@ function Payloads() {
   return (
     <>
       <div id="gap-to-payloads" className="h-[150vh] pointer-events-none" />
-      <section id="payloads" ref={container} className="w-full min-h-[100dvh] flex flex-col justify-center pt-8 pb-12 md:py-12 relative z-10 max-md:h-[100dvh] max-md:justify-start max-md:pt-8 max-md:pb-2">
+      <section id="payloads" ref={container} className="w-full min-h-[100dvh] flex flex-col justify-center pt-8 pb-12 md:py-12 relative z-10 max-md:h-[100dvh] max-md:justify-start max-md:pt-28 max-md:pb-2">
 
         {/* Header matching Navbar width */}
         <div className="max-w-7xl w-full px-6 mx-auto mb-6 md:mb-12 lg:mb-20 max-md:mb-4 max-md:shrink-0">
@@ -456,7 +456,7 @@ function Payloads() {
                     </div>
 
                     {/* Mockup Column (Dual iOS) */}
-                    <div className="w-full lg:w-7/12 h-[340px] md:h-[600px] scale-[0.5] sm:scale-75 md:scale-100 origin-top relative flex items-center justify-center gap-6 md:gap-10 pb-[1em] md:pb-[4em] max-md:items-start max-md:min-h-0 max-md:mt-0 max-md:flex-1 max-md:h-auto">
+                    <div className="w-full lg:w-7/12 h-[340px] md:h-[600px] scale-[0.65] sm:scale-90 md:scale-100 origin-top relative flex items-center justify-center gap-6 md:gap-10 pb-[1em] md:pb-[4em] max-md:items-start max-md:min-h-0 max-md:mt-0 max-md:flex-1 max-md:h-auto">
                       {/* Phone 1 */}
                       <div className="w-[240px] h-[520px] shrink-0 bg-void border border-white/10 rounded-[3rem] p-3 relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col z-20">
                         <div className="w-16 h-2 bg-white/20 rounded-full mx-auto mb-4 absolute top-5 left-1/2 -translate-x-1/2 z-30" />
@@ -531,7 +531,7 @@ function Payloads() {
                     </div>
 
                     {/* Mockup Column (Dual iOS) */}
-                    <div className="w-full lg:w-7/12 h-[340px] md:h-[600px] scale-[0.5] sm:scale-75 md:scale-100 origin-top relative flex items-center justify-center gap-6 md:gap-10 pb-[1em] md:pb-[4em] max-md:items-start max-md:min-h-0 max-md:mt-0 max-md:flex-1 max-md:h-auto">
+                    <div className="w-full lg:w-7/12 h-[340px] md:h-[600px] scale-[0.65] sm:scale-90 md:scale-100 origin-top relative flex items-center justify-center gap-6 md:gap-10 pb-[1em] md:pb-[4em] max-md:items-start max-md:min-h-0 max-md:mt-0 max-md:flex-1 max-md:h-auto">
                       {/* Phone 1 */}
                       <div className="w-[240px] h-[520px] shrink-0 bg-void border border-white/10 rounded-[3rem] p-3 relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col z-20">
                         <div className="w-16 h-2 bg-white/20 rounded-full mx-auto mb-4 absolute top-5 left-1/2 -translate-x-1/2 z-30" />
@@ -607,7 +607,7 @@ function Payloads() {
                     </div>
 
                     {/* Mockup Column (Dual iOS) */}
-                    <div className="w-full lg:w-7/12 h-[340px] md:h-[600px] scale-[0.5] sm:scale-75 md:scale-100 origin-top relative flex items-center justify-center gap-6 md:gap-10 pb-[1em] md:pb-[4em] max-md:items-start max-md:min-h-0 max-md:mt-0 max-md:flex-1 max-md:h-auto">
+                    <div className="w-full lg:w-7/12 h-[340px] md:h-[600px] scale-[0.65] sm:scale-90 md:scale-100 origin-top relative flex items-center justify-center gap-6 md:gap-10 pb-[1em] md:pb-[4em] max-md:items-start max-md:min-h-0 max-md:mt-0 max-md:flex-1 max-md:h-auto">
                       {/* Phone 1 */}
                       <div className="w-[240px] h-[520px] shrink-0 bg-void border border-white/10 rounded-[3rem] p-3 relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col z-20">
                         <div className="w-16 h-2 bg-white/20 rounded-full mx-auto mb-4 absolute top-5 left-1/2 -translate-x-1/2 z-30" />
