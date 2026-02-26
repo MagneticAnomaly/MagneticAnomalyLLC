@@ -261,7 +261,7 @@ function Navbar() {
     <>
       <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${navTransition} ${scrolled ? 'bg-[#030305]/80 backdrop-blur-[7px] py-4' : 'bg-transparent py-8'}`}>
         <div className="max-w-7xl mx-auto px-6 relative flex items-center h-8">
-          <h1 className={`absolute font-sans font-bold text-xl tracking-widest text-ice transition-all duration-500 ${contentTransition} ${scrolled ? 'left-6 -translate-x-0' : 'left-1/2 -translate-x-1/2'}`}>
+          <h1 className={`absolute whitespace-nowrap font-sans font-bold text-xl tracking-widest text-ice transition-all duration-500 ${contentTransition} ${scrolled ? 'left-6 -translate-x-0' : 'left-1/2 -translate-x-1/2'}`}>
             MAGNETIC ANOMALY
           </h1>
 
@@ -312,7 +312,7 @@ function Hero() {
     <section id="hero" ref={container} className="relative w-full h-[100dvh] flex items-center justify-center px-6">
       <div className="text-center z-10 max-w-4xl mx-auto md:mt-20 mt-0">
         <div className="hero-anim inline-block mb-6 px-4 py-1.5 opacity-0 pointer-events-none" style={{ height: '2rem' }}></div>
-        <h2 className="hero-anim font-serif text-6xl md:text-8xl italic text-ice mb-8 leading-tight max-md:text-[3.5em] max-md:leading-[1.1] max-md:px-[0.25em] max-md:mt-[0.6em] drop-shadow-[1px_2px_30px_rgba(0,0,0,0.4)]">We Make Things That<br />Dont Exist Yet.</h2>
+        <h2 className="hero-anim font-serif text-6xl md:text-8xl italic text-ice mb-8 leading-tight max-md:text-[3.5em] max-md:leading-[1.1] max-md:px-[0.3em] max-md:mt-[0.6em] drop-shadow-[1px_2px_30px_rgba(0,0,0,0.4)]">We Make Things That Don't Exist Yet.</h2>
         <div className="hero-anim relative w-screen ml-[calc(50%-50vw)] flex items-center justify-center my-6" style={{ height: '2.5rem' }}>
           <div className="subtitle-mask-hero absolute w-screen h-full bg-[#030305]/95 backdrop-blur-sm border-y border-white/5 flex items-center justify-center translate-z-0"
             style={{ clipPath: 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)' }}>
