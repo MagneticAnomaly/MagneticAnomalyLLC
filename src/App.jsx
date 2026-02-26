@@ -244,6 +244,7 @@ function CameraRig() {
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -253,17 +254,43 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navTransition = scrolled ? 'delay-[0ms]' : 'delay-[500ms]';
+  const contentTransition = scrolled ? 'delay-[500ms]' : 'delay-[0ms]';
+
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'bg-[#030305]/80 backdrop-blur-[7px] py-4' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <h1 className="font-sans font-bold text-xl tracking-widest text-ice">MAGNETIC ANOMALY</h1>
-        <div className="hidden md:flex items-center space-x-8">
-          <a href="#gap-to-payloads" className="font-mono text-sm text-telemetry hover:text-titan transition-colors">PORTFOLIO</a>
-          <a href="#manifesto" className="font-mono text-sm text-telemetry hover:text-titan transition-colors">MANIFESTO</a>
-          <a href="#commlink" className="font-mono text-sm text-telemetry hover:text-titan transition-colors">CONTACT</a>
+    <>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${navTransition} ${scrolled ? 'bg-[#030305]/80 backdrop-blur-[7px] py-4' : 'bg-transparent py-8'}`}>
+        <div className="max-w-7xl mx-auto px-6 relative flex items-center h-8">
+          <h1 className={`absolute font-sans font-bold text-xl tracking-widest text-ice transition-all duration-500 ${contentTransition} ${scrolled ? 'left-6 -translate-x-0' : 'left-1/2 -translate-x-1/2'}`}>
+            MAGNETIC ANOMALY
+          </h1>
+
+          {/* <div className={`hidden md:flex items-center space-x-8 absolute right-6 transition-all duration-500 ${contentTransition} ${scrolled ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+            <a href="#gap-to-payloads" className="font-mono text-sm text-telemetry hover:text-titan transition-colors">PORTFOLIO</a>
+            <a href="#manifesto" className="font-mono text-sm text-telemetry hover:text-titan transition-colors">MANIFESTO</a>
+            <a href="#commlink" className="font-mono text-sm text-telemetry hover:text-titan transition-colors">CONTACT</a>
+          </div> */}
+
+          {/* <div className={`md:hidden absolute right-6 transition-all duration-500 ${contentTransition} ${scrolled ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+            <button onClick={() => setMenuOpen(true)} className="text-ice p-1 focus:outline-none">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+          </div> */}
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      {/* <div className={`fixed inset-0 z-[60] bg-[#030305]/80 backdrop-blur-[7px] transition-all duration-500 flex flex-col items-center justify-center ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <button onClick={() => setMenuOpen(false)} className="absolute top-6 right-6 text-ice p-2 focus:outline-none">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div className="flex flex-col items-center space-y-12">
+          <a href="#gap-to-payloads" onClick={() => setMenuOpen(false)} className="font-sans font-bold text-2xl tracking-widest text-titan hover:text-ice transition-colors">PORTFOLIO</a>
+          <a href="#manifesto" onClick={() => setMenuOpen(false)} className="font-sans font-bold text-2xl tracking-widest text-titan hover:text-ice transition-colors">MANIFESTO</a>
+          <a href="#commlink" onClick={() => setMenuOpen(false)} className="font-sans font-bold text-2xl tracking-widest text-titan hover:text-ice transition-colors">CONTACT</a>
+        </div>
+      </div> */}
+    </>
   );
 }
 
@@ -283,7 +310,7 @@ function Hero() {
 
   return (
     <section id="hero" ref={container} className="relative w-full h-[100dvh] flex items-center justify-center px-6">
-      <div className="text-center z-10 max-w-4xl mx-auto mt-20">
+      <div className="text-center z-10 max-w-4xl mx-auto md:mt-20 mt-0">
         <div className="hero-anim inline-block mb-6 px-4 py-1.5 opacity-0 pointer-events-none" style={{ height: '2rem' }}></div>
         <h2 className="hero-anim font-serif text-6xl md:text-8xl italic text-ice mb-8 leading-tight max-md:text-[3.5em] max-md:leading-[1.1] max-md:px-[0.25em] max-md:mt-[0.6em] drop-shadow-[1px_2px_30px_rgba(0,0,0,0.4)]">We Make Things That<br />Dont Exist Yet.</h2>
         <div className="hero-anim relative w-screen ml-[calc(50%-50vw)] flex items-center justify-center my-6" style={{ height: '2.5rem' }}>
@@ -645,17 +672,20 @@ function Manifesto() {
     <>
       <div id="gap-to-manifesto" className="h-[150vh] pointer-events-none" />
       <section id="manifesto" ref={container} className="w-full min-h-screen relative z-10 flex flex-col items-center justify-center px-6 pointer-events-none">
-        <div className="text-center max-w-5xl mx-auto space-y-12">
-          <div className="manifesto-neutral relative w-screen ml-[calc(50%-50vw)] flex items-center justify-center mb-8" style={{ height: '2.5rem' }}>
+        <div className="text-center max-w-5xl mx-auto">
+          <div className="manifesto-neutral relative w-screen ml-[calc(50%-50vw)] flex items-center justify-center mb-[5em] md:mb-[10em]" style={{ height: '2.5rem' }}>
             <div className="subtitle-mask-manifesto absolute w-screen h-full bg-[#030305]/95 backdrop-blur-sm border-y border-white/5 flex items-center justify-center translate-z-0"
               style={{ clipPath: 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)' }}>
-              <p className="absolute w-screen text-center font-mono text-[#8B949E] text-sm md:text-base tracking-widest uppercase" style={{ textShadow: '0 0 10px rgba(255,255,255,0.1)' }}>
-                Why play video games when you can build apps?
+              <p className="absolute w-screen text-center font-mono text-[#8B949E] max-md:text-[3.2vw] md:text-base tracking-widest uppercase" style={{ textShadow: '0 0 10px rgba(255,255,255,0.1)' }}>
+                {/* We don't make games but we game design */}
+                <span className="md:hidden">Making apps for us to experience the world</span>
+                <span className="hidden md:inline">Making apps for humans to experience the world better</span>
               </p>
             </div>
           </div>
-          <h2 className="manifesto-drama font-serif text-5xl md:text-7xl lg:text-8xl italic text-titan leading-tight max-md:text-[3.5em] max-md:leading-[1.1] max-md:px-[0.25em] max-md:mt-[0.6em] text-shadow-titan drop-shadow-[1px_2px_30px_rgba(0,0,0,0.4)]">
-            App Design is a Puzzle and Strategy Game.
+          <h2 className="manifesto-drama font-serif text-5xl md:text-7xl lg:text-8xl italic text-white leading-tight max-md:text-[3.5em] max-md:leading-[1.1] max-sm:px-0 max-md:px-[0.25em] max-md:mt-[0.6em] mb-[2.25em] drop-shadow-[1px_2px_10px_rgba(0,0,0,0.8)] md:drop-shadow-[1px_2px_30px_rgba(0,0,0,0.4)]">
+            {/* App Design is a Puzzle & Strategy Game. */}
+            Is there a better way to experience the world?
           </h2>
         </div>
       </section>
@@ -808,10 +838,6 @@ function Footer() {
           <p>COORDS: 40.6895° N, 73.9646° W</p>
         </div>
         <div className="md:text-right flex flex-col md:items-end justify-between">
-          {/* <div className="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 w-fit mb-4">
-            <div className="w-2 h-2 rounded-full bg-signal animate-pulse" />
-            <span className="text-signal tracking-wider">SYSTEM ONLINE</span>
-          </div> */}
           <div className="space-x-4">
             <a href="#" className="hover:text-ice transition-colors">Privacy Policy</a>
             <span className="text-white/20">|</span>
