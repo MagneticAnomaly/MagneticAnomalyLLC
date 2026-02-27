@@ -12,7 +12,6 @@ html {
   font-family: 'JetBrains Mono', monospace;
   background-color: #030305;
   /* void text */
-  scroll-behavior: smooth;
 }
 
 body {

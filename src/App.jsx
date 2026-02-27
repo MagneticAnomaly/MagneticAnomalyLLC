@@ -11,6 +11,10 @@ import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Fix for mobile scroll sticking issues when using fixed pinning
+ScrollTrigger.config({ ignoreMobileResize: true });
+ScrollTrigger.normalizeScroll(true);
+
 /** ====== WEBGL BACKGROUND ====== */
 function AsteroidField({ count = 150 }) {
   const meshRef = useRef();
@@ -348,7 +352,7 @@ function Payloads() {
 
         {/* Portfolio Cards matching wider layout */}
         <div className="max-w-[1400px] w-full px-0 sm:px-4 md:px-8 mx-auto max-md:flex-1 max-md:flex max-md:flex-col max-md:min-h-0">
-          <div className="overflow-visible w-full relative max-md:h-full max-md:flex-1">
+          <div className="overflow-hidden w-full relative max-md:h-full max-md:flex-1">
             <div className="payloads-track relative w-full h-[550px] md:h-[700px] max-md:h-full">
 
               {/* APP 01 - CoDRAG */}
